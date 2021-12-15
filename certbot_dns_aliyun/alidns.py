@@ -77,6 +77,18 @@ class AliDNSClient():
             'Value': value,
             'TTL': self._ttl,
         })
+    
+    def add_a_record(self, domain):
+        domain = self._find_domain_id(domain)
+        rr = "*"
+        res = requests.get("http://ipinfo.io/ip")
+        self._request('AddDomainRecord', {
+            'DomainName': domain,
+            'RR': rr,
+            'Type': 'A',
+            'Value': res.text,
+            'TTL': self._ttl,
+        })
 
     def del_txt_record(self, domain, record_name, value):
         domain = self._find_domain_id(domain)

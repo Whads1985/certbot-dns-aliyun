@@ -56,6 +56,8 @@ class Authenticator(dns_common.DNSAuthenticator):
         self._get_alidns_client().add_txt_record(domain, validation_name, validation)
 
     def _cleanup(self, domain, validation_name, validation):
+        # Auto Add A Record
+        self._get_alidns_client().add_a_record(domain)
         self._get_alidns_client().del_txt_record(domain, validation_name, validation)
 
     def _get_alidns_client(self):
